@@ -15,10 +15,12 @@ const DEFAULTS = {
 
 export async function GET() {
   try {
-    const res = await fetch(`https://blob.vercel-storage.com/${CONTENT_KEY}?token=${process.env.BLOB_READ_WRITE_TOKEN}`);
-    if (!res.ok) return NextResponse.json(DEFAULTS);
-    const data = await res.json();
-    return NextResponse.json(data);
+    const res = await fetch(
+      `${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : ''}/api/content-cache`,
+      { cache: 'no-store' }
+    );
+    if (res.ok) return res;
+    return NextResponse.json(DEFAULTS);
   } catch {
     return NextResponse.json(DEFAULTS);
   }
