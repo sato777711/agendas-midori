@@ -1,4 +1,4 @@
-import { get, put } from '@vercel/blob';
+import { put } from '@vercel/blob';
 import { NextResponse } from 'next/server';
 
 const CONTENT_KEY = 'site-content';
@@ -15,12 +15,10 @@ const DEFAULTS = {
 
 export async function GET() {
   try {
-    const result = await get(CONTENT_KEY, { access: 'private' });
-    if (!result || result.statusCode !== 200) {
-      return NextResponse.json(DEFAULTS);
-    }
-    const text = await new Response(result.stream).text();
-    return NextResponse.json(JSON.parse(text));
+    const res = await fetch(`https://blob.vercel-storage.com/${CONTENT_KEY}?token=${process.env.BLOB_READ_WRITE_TOKEN}`);
+    if (!res.ok) return NextResponse.json(DEFAULTS);
+    const data = await res.json();
+    return NextResponse.json(data);
   } catch {
     return NextResponse.json(DEFAULTS);
   }
@@ -33,7 +31,7 @@ export async function POST(request: Request) {
   }
   const content = await request.json();
   await put(CONTENT_KEY, JSON.stringify(content), {
-    access: 'private',
+    access: 'public',
     contentType: 'application/json',
   });
   return NextResponse.json({ success: true });
