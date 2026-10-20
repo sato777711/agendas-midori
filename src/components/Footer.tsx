@@ -1,5 +1,3 @@
-'use client';
-
 export default function Footer() {
   return (
     <footer className="bg-coffee text-cream/80 py-12 px-4">
@@ -21,7 +19,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="text-center mt-8 font-sans text-xs opacity-50">
-        © {new Date().getFullYear()} Agendas a Mano. Todos los derechos reservados.
+        © 2026 Agendas a Mano. Todos los derechos reservados.
       </div>
     </footer>
   );
