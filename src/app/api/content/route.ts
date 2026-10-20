@@ -5,7 +5,7 @@ const CONTENT_KEY = 'site-content';
 
 const DEFAULTS = {
   siteName: 'Agendas a Mano',
-  tagline: 'Cuero, eco cuero y el arte de anotar',
+  tagline: 'Cuero, y el arte de anotar',
   heroImage: '', aboutText: '', aboutImage: '',
   whatsapp: '5491100000000', instagram: 'tuusuario',
   email: 'tu@email.com', city: 'Buenos Aires',
